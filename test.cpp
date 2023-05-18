@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <iomanip>
 using namespace std;
 
 struct Node {
@@ -74,6 +76,18 @@ bool searchNode(int nim, Node* current, Node* previous) {
 	}
 }
 
+bool deleteNode(int nim) {
+	Node* current = START;
+	Node* previous = START;
+	if (searchNode(nim, previous, current) == false)
+		return false;
+	previous->next = current->next;
+	if (current == START)
+
+		START = current->next;
+	return true;
+}
+
 bool listEmpty() {
 	if (START == NULL)
 		return true;
@@ -121,3 +135,63 @@ void searchData() {
 	
 }
 
+int main() {
+	int pilihan;
+	do
+	{
+		try
+		{
+			cout << "1. Tambah Data" << endl;
+			cout << "2. Hapus Data" << endl;
+			cout << "3. Tampilkan Data" << endl;
+			cout << "4. Cari Data" << endl;
+			cout << "5. Keluar" << endl;
+			cout << "Pilihan : ";
+			cin >> pilihan;
+			switch (pilihan)
+			{
+			case 1:
+				addNode();
+				cout << "Data Berhasil Ditambahkan" << endl;
+				system("pause");
+				system("cls");
+				break;
+			case 2:
+				if (listEmpty())
+				{
+					cout << "List Kosong" << endl;
+					system("pause");
+					system("cls");
+					break;
+				}
+				int nim;
+
+				cout << "Masukkan NIM : ";
+				cin >> nim;
+				if (deleteNode(nim)) {
+					cout << "nim : " << nim << " berhasil dihapus" << endl;
+					system("pause");
+					system("cls");
+				}
+				else
+					cout << "Data tidak ditemukan" << endl;
+				break;
+			case 3:
+				traverse();
+				break;
+			case 4:
+				searchData();
+				break;
+			case 5:
+				break;
+			default:
+				cout << "Pilihan tidak ada" << endl;
+				break;
+			}
+		}
+		catch (exception e)
+		{
+			cout << "Terjadi Kesalahan" << endl;
+		}
+	} while (pilihan != 5);
+}

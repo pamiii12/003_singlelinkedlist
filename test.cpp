@@ -73,3 +73,10 @@ bool searchNode(int nim, Node* current, Node* previous) {
 		return false;
 	}
 }
+
+bool listEmpty() {
+	if (START == NULL)
+		return true;
+	else
+		return false;
+}
